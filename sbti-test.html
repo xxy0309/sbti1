@@ -1,86 +1,119 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>抽象SBTI测试</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#111;color:#fff;padding:20px;max-width:700px;margin:0 auto}
-h1{text-align:center;color:#ffcc00;margin:20px 0}
-.q{background:#222;padding:18px;border-radius:10px;margin:16px 0}
-.opt{display:block;width:100%;padding:14px;margin:8px 0;border:1px solid #444;border-radius:8px;background:#2a2a2a;cursor:pointer;transition:.2s}
-.opt:hover{background:#383838;border-color:#ffcc00}
-.opt.active{background:#ffcc00;color:#000;border-color:#ffcc00}
-#sub{width:100%;padding:16px;background:#ffcc00;color:#000;font-weight:bold;border:none;border-radius:8px;font-size:17px;margin-top:10px;cursor:pointer}
-#res{margin-top:20px;padding:20px;background:#222;border-radius:10px;text-align:center;display:none}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBTI心理测试网页</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .option {
+            background-color: #333;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .option.selected {
+            background-color: #ffcc00;
+            color: #000;
+        }
+        #submitBtn {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #222;
+            border-radius: 6px;
+        }
+    </style>
 </head>
 <body>
-<h1>抽象SBTI测试</h1>
-<div class="q">
-<p>1.别人骂你，你会？</p >
-<div class="opt" data-v="S">A 直接骂回去，谁怕谁</div>
-<div class="opt" data-v="B">B 表面点头，心里骂他八百遍</div>
-</div>
-<div class="q">
-<p>2.朋友约你出门，你会？</p >
-<div class="opt" data-v="T">A 冲！马上收拾出门</div>
-<div class="opt" data-v="I">B 算了，还是躺着舒服</div>
-</div>
-<div class="q">
-<p>3.刷短视频停不下来？</p >
-<div class="opt" data-v="G">A 继续刷，快乐最重要</div>
-<div class="opt" data-v="J">B 骂自己然后继续刷</div>
-</div>
-<div class="q">
-<p>4.看到别人成功？</p >
-<div class="opt" data-v="N">A 他好厉害我要努力</div>
-<div class="opt" data-v="D">B 切，靠运气罢了</div>
-</div>
-<div class="q">
-<p>5.做事到一半？</p >
-<div class="opt" data-v="A">A 一鼓作气干完</div>
-<div class="opt" data-v="P">B 先玩会儿再说</div>
-</div>
-<button id="sub">查看抽象人格</button>
-<div id="res">
-<h2>你的SBTI：<span id="sbt"></span></h2>
-<p id="desc"></p >
-</div>
+    <h1>SBTI心理测试</h1>
 
-<script>
-const opts=document.querySelectorAll('.opt');
-const sub=document.getElementById('sub');
-const res=document.getElementById('res');
-const sbt=document.getElementById('sbt');
-const desc=document.getElementById('desc');
-let ans=[];
+    <div class="question" data-qid="0">
+        <p>1. 看到别人成功？</p >
+        <div class="option" data-value="A">他好厉害我要努力</div>
+        <div class="option" data-value="B">切，靠运气罢了</div>
+    </div>
 
-opts.forEach(item=>{
-item.onclick=()=>{
-const p=item.parentElement;
-p.querySelectorAll('.opt').forEach(i=>i.classList.remove('active'));
-item.classList.add('active');
-const idx=Array.from(p.parentElement.children).indexOf(p);
-ans[idx]=item.dataset.v;
-}
-})
+    <div class="question" data-qid="1">
+        <p>2. 做事到一半？</p >
+        <div class="option" data-value="A">一鼓作气干完</div>
+        <div class="option" data-value="B">先玩会儿再说</div>
+    </div>
 
-sub.onclick=()=>{
-const code=ans.join('');
-const map={
-STGNA:'疯批乐天派：怼人摆烂双料冠军',
-SIGNA:'互联网嘴替：表面社恐内心狂躁',
-BTGNA:'佛系阴暗派：心里阴阳大师',
-BIDPA:'终极内耗王：啥也不想干还内耗',
-STGNP:'热血三分钟：干啥都靠一时兴起',
-BIGDA:'阴暗爬行：见不得别人好自己不动'
-}
-sbt.innerText=code||'未答完';
-desc.innerText=map[code]||'过于抽象，系统读不懂';
-res.style.display='block';
-}
-</script>
+    <button id="submitBtn">查看抽象人格</button>
+    <div id="result"></div>
+
+    <script>
+        const answers = {};
+        const options = document.querySelectorAll('.option');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultDiv = document.getElementById('result');
+
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                // 清除同题选中状态
+                const siblings = this.parentElement.querySelectorAll('.option');
+                siblings.forEach(sib => sib.classList.remove('selected'));
+                // 设置当前选中
+                this.classList.add('selected');
+                // 记录答案
+                const qid = this.parentElement.dataset.qid;
+                answers[qid] = this.dataset.value;
+            });
+        });
+
+        submitBtn.addEventListener('click', function() {
+            // 检查是否所有题目都答了
+            const questions = document.querySelectorAll('.question');
+            let allAnswered = true;
+            questions.forEach(q => {
+                if (!answers[q.dataset.qid]) {
+                    allAnswered = false;
+                }
+            });
+
+            if (!allAnswered) {
+                alert('请完成所有题目再提交！');
+                return;
+            }
+
+            // 简单的结果判断
+            const ans0 = answers[0];
+            const ans1 = answers[1];
+            let result = '';
+
+            if (ans0 === 'A' && ans1 === 'A') {
+                result =「卷王之王：眼里只有成功」;
+            } else if (ans0 === 'A' && ans1 === 'B') {
+                result =「间歇性努力：想上进但懒」;
+            } else if (ans0 === 'B' && ans1 === 'A') {
+                result =「嘴硬行动派：嘴上酸但偷偷卷」;
+            } else {
+                result =「阴暗爬行：见不得别人好自己不动」;
+            }
+
+            resultDiv.innerHTML = `<h3>你的抽象人格是：</h3><p>${result}</p >`;
+        });
+    </script>
 </body>
 </html>
