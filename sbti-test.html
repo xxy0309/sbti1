@@ -3,104 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBTI心理测试</title>
+    <title>抽象SBTI测试</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:微软雅黑}
-        body{background:#f7f9fc;padding:20px;max-width:800px;margin:0 auto}
-        .box{background:white;border-radius:16px;padding:30px;box-shadow:0 2px 12px #00000010}
-        h1{text-align:center;color:#5b7c99;margin-bottom:25px;font-size:22px}
-        .q{margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #eee}
-        .q-title{font-size:16px;margin-bottom:12px}
-        .opt{padding:12px 16px;border:1px solid #dce4ec;border-radius:8px;margin:8px 0;cursor:pointer;transition:0.2s}
-        .opt:hover{background:#eef4f9;border-color:#89a8c2}
-        .opt.active{background:#5b7c99;color:white;border-color:#5b7c99}
-        button{width:100%;padding:14px;background:#5b7c99;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px}
-        button:hover{background:#486780}
-        .result{margin-top:25px;padding:20px;background:#eef4f9;border-radius:12px;display:none}
-        .res-title{font-size:20px;color:#5b7c99;font-weight:bold;text-align:center;margin-bottom:10px}
+        body {
+            font-family: "微软雅黑", sans-serif;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+        }
+        .question {
+            background: #2d2d2d;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+        .option {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background: #3a3a3a;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .option:hover {
+            background: #555;
+            border-color: #ffcc00;
+        }
+        .option.selected {
+            background: #ffcc00;
+            color: #000;
+            border-color: #ffcc00;
+        }
+        #submit-btn {
+            background: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2d2d2d;
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-<div class="box">
-    <h1>✨ SBTI 16型人格心理测试</h1>
-    <div class="q" data-id="1">
-        <div class="q-title">1. 团队开会时你会？</div>
-        <div class="opt" data-score="E">A 主动发言带动气氛</div>
-        <div class="opt" data-score="I">B 安静倾听不主动说话</div>
-        <div class="opt" data-score="S">C 关注实际任务细节</div>
-        <div class="opt" data-score="N">D 畅想未来创新方向</div>
+    <h1>抽象SBTI测试</h1>
+    <form id="test-form">
+        <div class="question">
+            <p>1. 别人骂你，你会？</p >
+            <label class="option"><input type="radio" name="q1" value="S" style="display:none;"> A 直接骂回去，谁怕谁</label>
+            <label class="option"><input type="radio" name="q1" value="B" style="display:none;"> B 表面点头，心里骂他八百遍</label>
+        </div>
+        <div class="question">
+            <p>2. 朋友约你出门，你会？</p >
+            <label class="option"><input type="radio" name="q2" value="T" style="display:none;"> A 冲！马上收拾出门</label>
+            <label class="option"><input type="radio" name="q2" value="I" style="display:none;"> B 算了，还是躺着舒服</label>
+        </div>
+        <div class="question">
+            <p>3. 刷短视频刷到停不下来，你会？</p >
+            <label class="option"><input type="radio" name="q3" value="G" style="display:none;"> A 继续刷，快乐最重要</label>
+            <label class="option"><input type="radio" name="q3" value="J" style="display:none;"> B 骂自己浪费时间，然后继续刷</label>
+        </div>
+        <div class="question">
+            <p>4. 看到别人成功，你会？</p >
+            <label class="option"><input type="radio" name="q4" value="N" style="display:none;"> A 他好厉害，我也要努力</label>
+            <label class="option"><input type="radio" name="q4" value="D" style="display:none;"> B 切，肯定是靠运气/关系</label>
+        </div>
+        <div class="question">
+            <p>5. 写作业/工作到一半，你会？</p >
+            <label class="option"><input type="radio" name="q5" value="A" style="display:none;"> A 一鼓作气干完</label>
+            <label class="option"><input type="radio" name="q5" value="P" style="display:none;"> B 先玩会儿，反正还有时间</label>
+        </div>
+        <button type="button" id="submit-btn">查看你的抽象人格</button>
+    </form>
+    <div id="result">
+        <h2>你的SBTI结果：<span id="result-text"></span></h2>
+        <p id="result-desc"></p >
     </div>
-    <div class="q" data-id="2">
-        <div class="q-title">2. 周末你更倾向？</div>
-        <div class="opt" data-score="E">A 约朋友出门社交</div>
-        <div class="opt" data-score="I">B 独处宅家放松</div>
-        <div class="opt" data-score="J">C 提前规划好行程</div>
-        <div class="opt" data-score="P">D 随心安排看心情</div>
-    </div>
-    <div class="q" data-id="3">
-        <div class="q-title">3. 朋友情绪低落时你会？</div>
-        <div class="opt" data-score="T">A 理性分析给解决方案</div>
-        <div class="opt" data-score="F">B 先安慰照顾对方情绪</div>
-        <div class="opt" data-score="S">C 结合过往经验给建议</div>
-        <div class="opt" data-score="N">D 开导对方看长远角度</div>
-    </div>
-    <div class="q" data-id="4">
-        <div class="q-title">4. 学习新知识你偏好？</div>
-        <div class="opt" data-score="S">A 学实用能马上用的技能</div>
-        <div class="opt" data-score="N">B 学抽象脑洞类理论</div>
-        <div class="opt" data-score="J">C 按计划系统学习</div>
-        <div class="opt" data-score="P">D 碎片化随缘学习</div>
-    </div>
-    <div class="q" data-id="5">
-        <div class="q-title">5. 在陌生场合你的状态？</div>
-        <div class="opt" data-score="E">A 轻松主动认识新朋友</div>
-        <div class="opt" data-score="I">B 紧张只和熟人交流</div>
-        <div class="opt" data-score="T">C 客观观察保持距离</div>
-        <div class="opt" data-score="F">D 热情照顾身边人感受</div>
-    </div>
-    <div class="q" data-id="6">
-        <div class="q-title">6. 做旅行计划时？</div>
-        <div class="opt" data-score="J">A 做详细攻略严格执行</div>
-        <div class="opt" data-score="P">B 只定大概路线边走边看</div>
-        <div class="opt" data-score="S">C 优先打卡经典景点</div>
-        <div class="opt" data-score="N">D 探索小众未知路线</div>
-    </div>
-    <div class="q" data-id="7">
-        <div class="q-title">7. 评价一部电影更看重？</div>
-        <div class="opt" data-score="S">A 剧情逻辑画面细节</div>
-        <div class="opt" data-score="N">B 深层寓意情感脑洞</div>
-        <div class="opt" data-score="T">C 客观评判好坏</div>
-        <div class="opt" data-score="F">D 个人情绪体验</div>
-    </div>
-    <div class="q" data-id="8">
-        <div class="q-title">8. 任务截止前你的习惯？</div>
-        <div class="opt" data-score="J">A 提前做完绝不拖延</div>
-        <div class="opt" data-score="P">B 最后时刻冲刺赶工</div>
-        <div class="opt" data-score="E">A 和同事协作完成</div>
-        <div class="opt" data-score="I">B 自己安静独立完成</div>
-    </div>
-    <div class="q" data-id="9">
-        <div class="q-title">9. 认识一个人你先关注？</div>
-        <div class="opt" data-score="T">A 能力靠谱程度</div>
-        <div class="opt" data-score="F">B 人品待人善意</div>
-        <div class="opt" data-score="S">C 外在实际表现</div>
-        <div class="opt" data-score="N">D 内在潜力想法</div>
-    </div>
-    <div class="q" data-id="10">
-        <div class="q-title">10. 计划被打乱你会？</div>
-        <div class="opt" data-score="J">A 焦虑想恢复原计划</div>
-        <div class="opt" data-score="P">B 淡定快速适应变化</div>
-        <div class="opt" data-score="E">A 找人商量解决办法</div>
-        <div class="opt" data-score="I">B 自己冷静想办法</div>
-    </div>
-    <div class="q" data-id="11">
-        <div class="q-title">11. 表达观点你会？</div>
-        <div class="opt" data-score="E">A 直接坦率分享</div>
-        <div class="opt" data-score="I">B 深思熟虑委婉说</div>
-        <div class="opt" data-score="T">C 只讲客观逻辑</div>
-        <div class="opt" data-score="F">D 照顾别人感受</div>
-    </div>
-    <div class="q" data-id="12">
-        <div class="q-title">12. 整理房间你偏好？</div>
-        <div class="opt" data-score="J">A 整齐分类收纳</div>
-        <div class
+
+    <script>
+        const options = document.querySelectorAll('.option');
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const name = option.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                    input.parentElement.classList.remove('selected');
+                });
+                option.classList.add('selected');
+                option.querySelector('input').checked = true;
+            });
+        });
+
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.addEventListener('click', () => {
+            const formData = new FormData(document.getElementById('test-form'));
+            let resultCode = '';
+            for (let value of formData.values()) {
+                resultCode += value;
+            }
+            const descriptions = {
+                'STGNA': '典型的**疯批乐天派**，怼人第一名，摆烂也是第一名',
+                'SIGNA': '表面社恐，内心疯批，互联网嘴替就是你',
+                'BTGNA': '佛系摆烂大师，骂不还口但心里骂得比谁都脏',
+                'BIDPA': '终极内耗摆烂王，啥也不想干，还天天骂自己废物',
+                'STGNP': '热血笨蛋，三分钟热度，干啥都靠一时兴起',
+                'BIGDA': '阴暗爬行选手，见不得别人好，自己又不想努力'
+            };
+            document.getElementById('result-text').textContent = resultCode || '未完成测试';
+            document.getElementById('result-desc').textContent = descriptions[resultCode] || '抽象人格加载失败，你太抽象了系统读不懂';
+            document.getElement
