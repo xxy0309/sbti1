@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBTI心理测试</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:微软雅黑}
+        body{background:#f7f9fc;padding:20px;max-width:800px;margin:0 auto}
+        .box{background:white;border-radius:16px;padding:30px;box-shadow:0 2px 12px #00000010}
+        h1{text-align:center;color:#5b7c99;margin-bottom:25px;font-size:22px}
+        .q{margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #eee}
+        .q-title{font-size:16px;margin-bottom:12px}
+        .opt{padding:12px 16px;border:1px solid #dce4ec;border-radius:8px;margin:8px 0;cursor:pointer;transition:0.2s}
+        .opt:hover{background:#eef4f9;border-color:#89a8c2}
+        .opt.active{background:#5b7c99;color:white;border-color:#5b7c99}
+        button{width:100%;padding:14px;background:#5b7c99;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px}
+        button:hover{background:#486780}
+        .result{margin-top:25px;padding:20px;background:#eef4f9;border-radius:12px;display:none}
+        .res-title{font-size:20px;color:#5b7c99;font-weight:bold;text-align:center;margin-bottom:10px}
+    </style>
+</head>
+<body>
+<div class="box">
+    <h1>✨ SBTI 16型人格心理测试</h1>
+    <div class="q" data-id="1">
+        <div class="q-title">1. 团队开会时你会？</div>
+        <div class="opt" data-score="E">A 主动发言带动气氛</div>
+        <div class="opt" data-score="I">B 安静倾听不主动说话</div>
+        <div class="opt" data-score="S">C 关注实际任务细节</div>
+        <div class="opt" data-score="N">D 畅想未来创新方向</div>
+    </div>
+    <div class="q" data-id="2">
+        <div class="q-title">2. 周末你更想？</div>
+        <div class="opt" data-score="E">A 约朋友出门社交</div>
+        <div class="opt" data-score="I">B 独处宅家放松</div>
+        <div class="opt" data-score="J">C 提前规划好行程</div>
+        <div class="opt" data-score="P">D 随心安排看心情</div>
+    </div>
+    <div class="q" data-id="3">
+        <div class="q-title">3. 朋友难过时你会？</div>
+        <div class="opt" data-score="T">A 理性分析给解决方案</div>
+        <div class="opt" data-score="F">B 先安慰照顾对方情绪</div>
+        <div class="opt" data-score="S">C 结合经验给建议</div>
+        <div class="opt" data-score="N">D 开导看长远角度</div>
+    </div>
+    <div class="q" data-id="4">
+        <div class="q-title">4. 学新知识你偏好？</div>
+        <div class="opt" data-score="S">A 学实用能马上用的技能</div>
+        <div class="opt" data-score="N">B 学抽象脑洞类理论</div>
+        <div class="opt" data-score="J">C 按计划系统学习</div>
+        <div class="opt" data-score="P">D 碎片化随缘学习</div>
+    </div>
+    <div class="q" data-id="5">
+        <div class="q-title">5. 陌生场合你状态？</div>
+        <div class="opt" data-score="E">A 轻松主动认识人</div>
+        <div class="opt" data-score="I">B 紧张只和熟人说话</div>
+        <div class="opt" data-score="T">C 客观观察保持距离</div>
+        <div class="opt" data-score="F">D 热情照顾身边人</div>
+    </div>
+    <div class="q" data-id="6">
+        <div class="q-title">6. 做旅行计划？</div>
+        <div class="opt" data-score="J">A 详细攻略严格执行</div>
+        <div class="opt" data-score="P">B 只定大概边走边看</div>
+        <div class="opt" data-score="S">C 打卡经典景点</div>
+        <div class="opt" data-score="N">D 探索小众未知路线</div>
+    </div>
+    <div class="q" data-id="7">
+        <div class="q-title">7. 评价电影看重？</div>
+        <div class="opt" data-score="S">A 剧情逻辑画面细节</div>
+        <div class="opt" data-score="N">B 深层寓意情感脑洞</div>
+        <div class="opt" data-score="T">C 客观评判好坏</div>
+        <div class="opt" data-score="F">D 看情绪体验</div>
+    </div>
+    <div class="q" data-id="8">
+        <div class="q-title">8. 任务截止前习惯？</div>
+        <div class="opt" data-score="J">A 提前做完不拖延</div>
+        <div class="opt" data-score="P">B 最后冲刺赶工</div>
+        <div class="opt" data-score="E">A 和同事协作完成</div>
+        <div class="opt" data-score="I">B 自己安静做完</div>
+    </div>
+    <div class="q" data-id="9">
+        <div class="q-title">9. 看人先关注？</div>
+        <div class="opt" data-score="T">A 能力靠谱程度</div>
+        <div class="opt" data-score="F">B 人品待人善意</div>
+        <div class="opt" data-score="S">C 外在实际表现</div>
+        <div class="opt" data-score="N">D 内在潜力想法</div>
+    </div>
+    <div class="q" data-id="10">
+        <div class="q-title">10. 计划被打乱会？</div>
+        <div class="opt" data-score="J">A 焦虑想恢复原计划</div>
+        <div class="opt" data-score="P">B 淡定快速适应变化</div>
+        <div class="opt" data-score="E">A 找人商量解决</div>
+        <div class="opt" data-score="I">B 自己冷静想办法</div>
+    </div>
+    <div class="q" data-id="11">
+        <div class="q-title">11. 表达观点会？</div>
+        <div class="opt" data-score="E">A 直接坦率分享</div>
+        <div class="opt" data-score="I">B 深思熟虑委婉说</div>
+        <div class="opt" data-score="T">C 只讲客观逻辑</div>
+        <div class="opt" data-score="F">D 照顾别人感受</div>
+    </div>
+    <div class="q" data-id="12">
+        <div class="q-title">12. 整理房间偏好？</div>
+        <div class="opt" data-score="J">A 整齐分类收纳</div>
+        <div class="opt" data-score="P">B 随性方便就好</div>
+   
