@@ -1,133 +1,86 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>抽象SBTI测试</title>
-    <style>
-        body {
-            font-family: "微软雅黑", sans-serif;
-            max-width: 700px;
-            margin: 30px auto;
-            padding: 20px;
-            background: #1a1a1a;
-            color: #fff;
-        }
-        h1 {
-            text-align: center;
-            color: #ffcc00;
-        }
-        .question {
-            background: #2d2d2d;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
-        }
-        .option {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #444;
-            border-radius: 6px;
-            background: #3a3a3a;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .option:hover {
-            background: #555;
-            border-color: #ffcc00;
-        }
-        .option.selected {
-            background: #ffcc00;
-            color: #000;
-            border-color: #ffcc00;
-        }
-        #submit-btn {
-            background: #ffcc00;
-            color: #000;
-            border: none;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            width: 100%;
-            cursor: pointer;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background: #2d2d2d;
-            border-radius: 10px;
-            display: none;
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抽象SBTI测试</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#111;color:#fff;padding:20px;max-width:700px;margin:0 auto}
+h1{text-align:center;color:#ffcc00;margin:20px 0}
+.q{background:#222;padding:18px;border-radius:10px;margin:16px 0}
+.opt{display:block;width:100%;padding:14px;margin:8px 0;border:1px solid #444;border-radius:8px;background:#2a2a2a;cursor:pointer;transition:.2s}
+.opt:hover{background:#383838;border-color:#ffcc00}
+.opt.active{background:#ffcc00;color:#000;border-color:#ffcc00}
+#sub{width:100%;padding:16px;background:#ffcc00;color:#000;font-weight:bold;border:none;border-radius:8px;font-size:17px;margin-top:10px;cursor:pointer}
+#res{margin-top:20px;padding:20px;background:#222;border-radius:10px;text-align:center;display:none}
+</style>
 </head>
 <body>
-    <h1>抽象SBTI测试</h1>
-    <form id="test-form">
-        <div class="question">
-            <p>1. 别人骂你，你会？</p >
-            <label class="option"><input type="radio" name="q1" value="S" style="display:none;"> A 直接骂回去，谁怕谁</label>
-            <label class="option"><input type="radio" name="q1" value="B" style="display:none;"> B 表面点头，心里骂他八百遍</label>
-        </div>
-        <div class="question">
-            <p>2. 朋友约你出门，你会？</p >
-            <label class="option"><input type="radio" name="q2" value="T" style="display:none;"> A 冲！马上收拾出门</label>
-            <label class="option"><input type="radio" name="q2" value="I" style="display:none;"> B 算了，还是躺着舒服</label>
-        </div>
-        <div class="question">
-            <p>3. 刷短视频刷到停不下来，你会？</p >
-            <label class="option"><input type="radio" name="q3" value="G" style="display:none;"> A 继续刷，快乐最重要</label>
-            <label class="option"><input type="radio" name="q3" value="J" style="display:none;"> B 骂自己浪费时间，然后继续刷</label>
-        </div>
-        <div class="question">
-            <p>4. 看到别人成功，你会？</p >
-            <label class="option"><input type="radio" name="q4" value="N" style="display:none;"> A 他好厉害，我也要努力</label>
-            <label class="option"><input type="radio" name="q4" value="D" style="display:none;"> B 切，肯定是靠运气/关系</label>
-        </div>
-        <div class="question">
-            <p>5. 写作业/工作到一半，你会？</p >
-            <label class="option"><input type="radio" name="q5" value="A" style="display:none;"> A 一鼓作气干完</label>
-            <label class="option"><input type="radio" name="q5" value="P" style="display:none;"> B 先玩会儿，反正还有时间</label>
-        </div>
-        <button type="button" id="submit-btn">查看你的抽象人格</button>
-    </form>
-    <div id="result">
-        <h2>你的SBTI结果：<span id="result-text"></span></h2>
-        <p id="result-desc"></p >
-    </div>
+<h1>抽象SBTI测试</h1>
+<div class="q">
+<p>1.别人骂你，你会？</p >
+<div class="opt" data-v="S">A 直接骂回去，谁怕谁</div>
+<div class="opt" data-v="B">B 表面点头，心里骂他八百遍</div>
+</div>
+<div class="q">
+<p>2.朋友约你出门，你会？</p >
+<div class="opt" data-v="T">A 冲！马上收拾出门</div>
+<div class="opt" data-v="I">B 算了，还是躺着舒服</div>
+</div>
+<div class="q">
+<p>3.刷短视频停不下来？</p >
+<div class="opt" data-v="G">A 继续刷，快乐最重要</div>
+<div class="opt" data-v="J">B 骂自己然后继续刷</div>
+</div>
+<div class="q">
+<p>4.看到别人成功？</p >
+<div class="opt" data-v="N">A 他好厉害我要努力</div>
+<div class="opt" data-v="D">B 切，靠运气罢了</div>
+</div>
+<div class="q">
+<p>5.做事到一半？</p >
+<div class="opt" data-v="A">A 一鼓作气干完</div>
+<div class="opt" data-v="P">B 先玩会儿再说</div>
+</div>
+<button id="sub">查看抽象人格</button>
+<div id="res">
+<h2>你的SBTI：<span id="sbt"></span></h2>
+<p id="desc"></p >
+</div>
 
-    <script>
-        const options = document.querySelectorAll('.option');
-        options.forEach(option => {
-            option.addEventListener('click', () => {
-                const name = option.querySelector('input').name;
-                document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
-                    input.parentElement.classList.remove('selected');
-                });
-                option.classList.add('selected');
-                option.querySelector('input').checked = true;
-            });
-        });
+<script>
+const opts=document.querySelectorAll('.opt');
+const sub=document.getElementById('sub');
+const res=document.getElementById('res');
+const sbt=document.getElementById('sbt');
+const desc=document.getElementById('desc');
+let ans=[];
 
-        const submitBtn = document.getElementById('submit-btn');
-        submitBtn.addEventListener('click', () => {
-            const formData = new FormData(document.getElementById('test-form'));
-            let resultCode = '';
-            for (let value of formData.values()) {
-                resultCode += value;
-            }
-            const descriptions = {
-                'STGNA': '典型的**疯批乐天派**，怼人第一名，摆烂也是第一名',
-                'SIGNA': '表面社恐，内心疯批，互联网嘴替就是你',
-                'BTGNA': '佛系摆烂大师，骂不还口但心里骂得比谁都脏',
-                'BIDPA': '终极内耗摆烂王，啥也不想干，还天天骂自己废物',
-                'STGNP': '热血笨蛋，三分钟热度，干啥都靠一时兴起',
-                'BIGDA': '阴暗爬行选手，见不得别人好，自己又不想努力'
-            };
-            document.getElementById('result-text').textContent = resultCode || '未完成测试';
-            document.getElementById('result-desc').textContent = descriptions[resultCode] || '抽象人格加载失败，你太抽象了系统读不懂';
-            document.getElement
+opts.forEach(item=>{
+item.onclick=()=>{
+const p=item.parentElement;
+p.querySelectorAll('.opt').forEach(i=>i.classList.remove('active'));
+item.classList.add('active');
+const idx=Array.from(p.parentElement.children).indexOf(p);
+ans[idx]=item.dataset.v;
+}
+})
+
+sub.onclick=()=>{
+const code=ans.join('');
+const map={
+STGNA:'疯批乐天派：怼人摆烂双料冠军',
+SIGNA:'互联网嘴替：表面社恐内心狂躁',
+BTGNA:'佛系阴暗派：心里阴阳大师',
+BIDPA:'终极内耗王：啥也不想干还内耗',
+STGNP:'热血三分钟：干啥都靠一时兴起',
+BIGDA:'阴暗爬行：见不得别人好自己不动'
+}
+sbt.innerText=code||'未答完';
+desc.innerText=map[code]||'过于抽象，系统读不懂';
+res.style.display='block';
+}
+</script>
+</body>
+</html>
